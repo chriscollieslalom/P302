@@ -41,7 +41,7 @@ Each chapter should advance the central argument. Avoid turning the story into a
 
 ## Data approach
 
-The official edition uses a locally cached source snapshot so the complete experience works without network access; the fictional prototype remains available for comparison. Clearly label illustrative values and show source metadata for official observations. Before using data, define each measure and validate its source, geography, unit, frequency, reference period, and transformation.
+The experience uses a locally cached official source snapshot so it works without network access. The original fictional dataset is retained separately as a rollback copy. The story compares costs with an income denominator and distinguishes household disposable income, average hourly wages, CPI, new-house prices, population estimates, and housing starts.
 
 The story should explain association and context without claiming that one indicator alone proves causation.
 

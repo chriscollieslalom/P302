@@ -3,7 +3,7 @@
     "title": "The Affordability Gap",
     "edition": "official",
     "status": "Official Statistics Canada and CMHC source snapshot; reference periods vary by figure.",
-    "fetchedAt": "2026-09-28T21:08:06.245Z",
+    "fetchedAt": "2026-09-28T21:36:11.366Z",
     "lastRefreshedLabel": "Source snapshot retrieved 2026-09-28",
     "monthlyBasePeriodLabel": "August 2016",
     "latestMonthlyPeriodLabel": "August 2026",
@@ -245,6 +245,26 @@
         ]
       },
       {
+        "organization": "Statistics Canada",
+        "tableId": 18100205,
+        "tableNumber": "18-10-0205-01",
+        "title": "New housing price index, monthly",
+        "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1810020501",
+        "frequencyCode": 6,
+        "latestReferencePeriod": "2026-08-01",
+        "releaseTime": "2026-09-17T08:30",
+        "series": [
+          {
+            "key": "new-housing:Canada",
+            "geography": "Canada",
+            "coordinate": "1.1.0.0.0.0.0.0.0.0",
+            "vectorId": 111955442,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          }
+        ]
+      },
+      {
         "organization": "Canada Mortgage and Housing Corporation via Statistics Canada",
         "tableId": 34100135,
         "tableNumber": "34-10-0135-01",
@@ -261,6 +281,390 @@
             "vectorId": 730416,
             "firstReferencePeriod": "2014-01-01",
             "latestReferencePeriod": "2026-04-01"
+          }
+        ]
+      },
+      {
+        "organization": "Statistics Canada",
+        "tableId": 36100587,
+        "tableNumber": "36-10-0587-01",
+        "title": "Distributions of household economic accounts, income, consumption and saving, by characteristic, annual",
+        "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3610058701",
+        "frequencyCode": 12,
+        "latestReferencePeriod": "2025-01-01",
+        "releaseTime": "2026-04-13T08:30",
+        "series": [
+          {
+            "key": "disposable-income:Canada",
+            "geography": "Canada",
+            "coordinate": "1.3.1.1.0.0.0.0.0.0",
+            "vectorId": 116884948,
+            "firstReferencePeriod": "1999-01-01",
+            "latestReferencePeriod": "2025-01-01"
+          }
+        ]
+      },
+      {
+        "organization": "Statistics Canada",
+        "tableId": 98100252,
+        "tableNumber": "98-10-0252-01",
+        "title": "Shelter-cost-to-income ratio by tenure: Canada, provinces and territories, census metropolitan areas and census agglomerations",
+        "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=9810025201",
+        "frequencyCode": 18,
+        "latestReferencePeriod": "2021-01-01",
+        "releaseTime": "2022-09-23T12:50",
+        "series": [
+          {
+            "key": "shelter-burden:Canada:owner:all",
+            "geography": "Canada",
+            "coordinate": "1.1.1.1.1.1.1.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Canada:owner:30plus",
+            "geography": "Canada",
+            "coordinate": "1.1.1.1.1.1.3.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Canada:renter:all",
+            "geography": "Canada",
+            "coordinate": "1.1.1.1.1.1.1.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Canada:renter:30plus",
+            "geography": "Canada",
+            "coordinate": "1.1.1.1.1.1.3.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Newfoundland and Labrador:owner:all",
+            "geography": "Newfoundland and Labrador",
+            "coordinate": "2.1.1.1.1.1.1.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Newfoundland and Labrador:owner:30plus",
+            "geography": "Newfoundland and Labrador",
+            "coordinate": "2.1.1.1.1.1.3.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Newfoundland and Labrador:renter:all",
+            "geography": "Newfoundland and Labrador",
+            "coordinate": "2.1.1.1.1.1.1.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Newfoundland and Labrador:renter:30plus",
+            "geography": "Newfoundland and Labrador",
+            "coordinate": "2.1.1.1.1.1.3.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Prince Edward Island:owner:all",
+            "geography": "Prince Edward Island",
+            "coordinate": "7.1.1.1.1.1.1.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Prince Edward Island:owner:30plus",
+            "geography": "Prince Edward Island",
+            "coordinate": "7.1.1.1.1.1.3.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Prince Edward Island:renter:all",
+            "geography": "Prince Edward Island",
+            "coordinate": "7.1.1.1.1.1.1.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Prince Edward Island:renter:30plus",
+            "geography": "Prince Edward Island",
+            "coordinate": "7.1.1.1.1.1.3.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Nova Scotia:owner:all",
+            "geography": "Nova Scotia",
+            "coordinate": "10.1.1.1.1.1.1.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Nova Scotia:owner:30plus",
+            "geography": "Nova Scotia",
+            "coordinate": "10.1.1.1.1.1.3.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Nova Scotia:renter:all",
+            "geography": "Nova Scotia",
+            "coordinate": "10.1.1.1.1.1.1.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Nova Scotia:renter:30plus",
+            "geography": "Nova Scotia",
+            "coordinate": "10.1.1.1.1.1.3.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:New Brunswick:owner:all",
+            "geography": "New Brunswick",
+            "coordinate": "16.1.1.1.1.1.1.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:New Brunswick:owner:30plus",
+            "geography": "New Brunswick",
+            "coordinate": "16.1.1.1.1.1.3.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:New Brunswick:renter:all",
+            "geography": "New Brunswick",
+            "coordinate": "16.1.1.1.1.1.1.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:New Brunswick:renter:30plus",
+            "geography": "New Brunswick",
+            "coordinate": "16.1.1.1.1.1.3.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Quebec:owner:all",
+            "geography": "Quebec",
+            "coordinate": "24.1.1.1.1.1.1.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Quebec:owner:30plus",
+            "geography": "Quebec",
+            "coordinate": "24.1.1.1.1.1.3.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Quebec:renter:all",
+            "geography": "Quebec",
+            "coordinate": "24.1.1.1.1.1.1.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Quebec:renter:30plus",
+            "geography": "Quebec",
+            "coordinate": "24.1.1.1.1.1.3.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Ontario:owner:all",
+            "geography": "Ontario",
+            "coordinate": "54.1.1.1.1.1.1.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Ontario:owner:30plus",
+            "geography": "Ontario",
+            "coordinate": "54.1.1.1.1.1.3.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Ontario:renter:all",
+            "geography": "Ontario",
+            "coordinate": "54.1.1.1.1.1.1.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Ontario:renter:30plus",
+            "geography": "Ontario",
+            "coordinate": "54.1.1.1.1.1.3.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Manitoba:owner:all",
+            "geography": "Manitoba",
+            "coordinate": "98.1.1.1.1.1.1.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Manitoba:owner:30plus",
+            "geography": "Manitoba",
+            "coordinate": "98.1.1.1.1.1.3.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Manitoba:renter:all",
+            "geography": "Manitoba",
+            "coordinate": "98.1.1.1.1.1.1.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Manitoba:renter:30plus",
+            "geography": "Manitoba",
+            "coordinate": "98.1.1.1.1.1.3.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Saskatchewan:owner:all",
+            "geography": "Saskatchewan",
+            "coordinate": "105.1.1.1.1.1.1.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Saskatchewan:owner:30plus",
+            "geography": "Saskatchewan",
+            "coordinate": "105.1.1.1.1.1.3.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Saskatchewan:renter:all",
+            "geography": "Saskatchewan",
+            "coordinate": "105.1.1.1.1.1.1.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Saskatchewan:renter:30plus",
+            "geography": "Saskatchewan",
+            "coordinate": "105.1.1.1.1.1.3.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Alberta:owner:all",
+            "geography": "Alberta",
+            "coordinate": "115.1.1.1.1.1.1.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Alberta:owner:30plus",
+            "geography": "Alberta",
+            "coordinate": "115.1.1.1.1.1.3.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Alberta:renter:all",
+            "geography": "Alberta",
+            "coordinate": "115.1.1.1.1.1.1.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:Alberta:renter:30plus",
+            "geography": "Alberta",
+            "coordinate": "115.1.1.1.1.1.3.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:British Columbia:owner:all",
+            "geography": "British Columbia",
+            "coordinate": "133.1.1.1.1.1.1.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:British Columbia:owner:30plus",
+            "geography": "British Columbia",
+            "coordinate": "133.1.1.1.1.1.3.2.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:British Columbia:renter:all",
+            "geography": "British Columbia",
+            "coordinate": "133.1.1.1.1.1.1.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
+          },
+          {
+            "key": "shelter-burden:British Columbia:renter:30plus",
+            "geography": "British Columbia",
+            "coordinate": "133.1.1.1.1.1.3.3.0.0",
+            "vectorId": 0,
+            "firstReferencePeriod": "2021-01-01",
+            "latestReferencePeriod": "2021-01-01"
           }
         ]
       }
@@ -328,6 +732,64 @@
       "sourceNote": "Statistics Canada tables 18-10-0004-01 and 14-10-0063-01; monthly, not seasonally adjusted; indexed to August 2016 = 100. Latest shared period: August 2026.",
       "summary": "From August 2016 to August 2026, Canada's all-items CPI rose 31.9%; average hourly wages rose 41.7%. These national averages do not describe every household or worker."
     },
+    "housingIncomeComparison": {
+      "labels": [
+        "2016",
+        "2017",
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "newHousingToIncome": [
+        100,
+        100,
+        99,
+        96.9,
+        94.6,
+        102.9,
+        103.8,
+        99.4,
+        94.7,
+        89.4
+      ],
+      "shelterToIncome": [
+        100,
+        98.2,
+        99.3,
+        99.9,
+        94.7,
+        97.3,
+        101.1,
+        103.5,
+        103,
+        101.3
+      ],
+      "allItemsToIncome": [
+        100,
+        98.6,
+        99.6,
+        99.5,
+        93.5,
+        95.5,
+        98.6,
+        98.6,
+        95.5,
+        94.2
+      ],
+      "ratioPeakYear": 2022,
+      "ratioPeak": 103.8,
+      "latestYear": 2025,
+      "householdIncomeGrowth": 36.4,
+      "newHousingGrowth": 22,
+      "shelterCpiGrowth": 38.2,
+      "summary": "From 2016 to 2025, nominal disposable income per household rose 36.4%, the new housing price index rose 22%, and shelter CPI rose 38.2%. The new-housing-price growth ratio peaked at 103.8 in 2022, then eased. This is a national growth comparison, not a direct home-price-to-income affordability measure.",
+      "sourceNote": "Statistics Canada tables 18-10-0205-01, 36-10-0587-01, and 18-10-0004-01. December all-items, shelter, and new-housing indexes are compared with annual nominal disposable income per household. In this growth-ratio chart, 100 means price and income grew at the same rate since 2016; above 100 means the selected price index grew faster. This is not the share of income spent on housing."
+    },
     "populationHousing": {
       "startYear": 2016,
       "endYear": 2025,
@@ -343,8 +805,15 @@
           "colorClass": "housing-color"
         }
       ],
-      "summary": "From 2016 to 2025, the July 1 population estimate changed 15.2%; annual housing starts changed 30.9%. Starts are not completions or occupied homes.",
-      "sourceNote": "Statistics Canada tables 17-10-0009-01 and 34-10-0135-01. Population is a July 1 stock estimate; housing starts are unadjusted total units started during each calendar year. Both are indexed to 2016 = 100, but are different measures and do not establish housing adequacy."
+      "startsPerThousand": [
+        5.48,
+        6.23
+      ],
+      "startsAtPopulationPace": 228049,
+      "startsAbovePopulationPace": 30979,
+      "actualEndStarts": 259028,
+      "summary": "From 2016 to 2025, population grew 15.2% and annual housing starts grew 30.9. Starts rose from 5.48 to 6.23 per 1,000 residents. If starts had only grown with population, 2025 would have had about 228,049 starts; the actual total was 259,028, about 30,979 above that benchmark. This simple benchmark is not an estimate of homes needed.",
+      "sourceNote": "Statistics Canada tables 17-10-0009-01 and 34-10-0135-01. Population is a July 1 stock estimate; housing starts are unadjusted total units started during each calendar year. Starts are not completions or occupied homes. Matching starts growth to population alone does not account for household size, existing shortages, demolitions, location, or unit type."
     },
     "essentialCosts": [
       {
@@ -363,6 +832,69 @@
         "colorClass": "essential-shelter"
       }
     ],
+    "shelterBurdenByTenure": {
+      "referencePeriod": "2021 Census",
+      "threshold": "30% or more of household income spent on shelter costs",
+      "provinces": [
+        {
+          "province": "Canada",
+          "owners": 14.8,
+          "renters": 32.9
+        },
+        {
+          "province": "Newfoundland and Labrador",
+          "owners": 8.9,
+          "renters": 32.4
+        },
+        {
+          "province": "Prince Edward Island",
+          "owners": 8.8,
+          "renters": 30.1
+        },
+        {
+          "province": "Nova Scotia",
+          "owners": 9.6,
+          "renters": 34.7
+        },
+        {
+          "province": "New Brunswick",
+          "owners": 7.5,
+          "renters": 27.8
+        },
+        {
+          "province": "Quebec",
+          "owners": 10,
+          "renters": 25
+        },
+        {
+          "province": "Ontario",
+          "owners": 17.7,
+          "renters": 38.1
+        },
+        {
+          "province": "Manitoba",
+          "owners": 9.9,
+          "renters": 33.4
+        },
+        {
+          "province": "Saskatchewan",
+          "owners": 11,
+          "renters": 32.8
+        },
+        {
+          "province": "Alberta",
+          "owners": 16,
+          "renters": 33.7
+        },
+        {
+          "province": "B.C.",
+          "owners": 19.3,
+          "renters": 37.6
+        }
+      ],
+      "summary": "The 2021 Census measured the share of owner and renter households spending 30% or more of household income on shelter. The threshold is a common indicator, not a complete definition of affordability.",
+      "sourceNote": "Statistics Canada 2021 Census table 98-10-0252-01. Cross-sectional household share by province and tenure; not a current time series."
+    },
     "regionalComparison": [
       {
         "province": "Newfoundland and Labrador",

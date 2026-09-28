@@ -104,33 +104,6 @@ a { color: inherit; }
 .masthead-index { color: var(--ink); }
 .masthead-index span { margin: 0 4px; color: var(--red); }
 
-.edition-picker {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  padding: 3px;
-  border: 1px solid #cbd3cb;
-  border-radius: 999px;
-  background: #e9ede7;
-}
-
-.edition-picker a {
-  padding: 6px 10px;
-  border-radius: 999px;
-  color: #5e6963;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.61rem;
-  font-weight: 600;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.edition-picker a[aria-current='page'] {
-  background: #fff;
-  color: var(--ink);
-  box-shadow: 0 1px 3px rgba(25, 41, 35, 0.12);
-}
-
 .hero {
   position: relative;
   overflow: hidden;
@@ -465,8 +438,8 @@ a { color: inherit; }
 .region-bars { display: grid; gap: 4px; }
 .region-bars span { display: block; height: 8px; min-width: 12px; }
 .region-values { display: grid; grid-template-rows: 8px 8px; gap: 4px; color: #657169; font-family: 'DM Mono', monospace; font-size: 0.51rem; line-height: 8px; text-align: right; }
-.legend-housing { background: var(--red); }
-.legend-earnings { background: var(--green); }
+.burden-owner { background: var(--green); }
+.burden-renter { background: var(--red); }
 
 .watch-list { padding: 0; margin: 0 0 27px; list-style: none; }
 .watch-list li { display: grid; grid-template-columns: 28px minmax(0, 1fr) 18px; gap: 12px; padding: 17px 0; border-bottom: 1px solid var(--line); }
@@ -529,8 +502,6 @@ a { color: inherit; }
   .masthead-meta { width: 100%; justify-content: space-between; gap: 8px; font-size: 0.55rem; }
   .masthead-meta > span:first-child { display: none; }
   .masthead-index { display: none; }
-  .edition-picker { padding: 2px; }
-  .edition-picker a { padding: 5px 9px; font-size: 0.56rem; }
   .source-links { gap: 7px 12px; }
   .source-links a { font-size: 0.53rem; }
   .hero-inner { width: calc(100% - 40px); min-height: auto; gap: 39px; padding: 47px 0 39px; }

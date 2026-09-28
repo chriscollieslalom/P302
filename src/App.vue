@@ -11,7 +11,6 @@ import {
   type ChartOptions,
 } from 'chart.js'
 import { Line } from 'vue-chartjs'
-import prototypeStoryData from './data/affordability-story.json'
 import officialStoryData from './data/affordability-story-live.json'
 
 type StoryData = {
@@ -32,37 +31,52 @@ type StoryData = {
       summary?: string
       sourceNote?: string
     }
+    housingIncomeComparison: {
+      labels: string[]
+      newHousingToIncome: number[]
+      shelterToIncome: number[]
+      allItemsToIncome: number[]
+      summary: string
+      sourceNote: string
+      ratioPeakYear: number
+      ratioPeak: number
+      latestYear: number
+    }
     populationHousing: {
       startYear?: number
       endYear?: number
       series: Array<{ label: string; value: number; colorClass: string }>
       summary?: string
       sourceNote?: string
+      startsPerThousand: number[]
+      startsAtPopulationPace: number
+      actualEndStarts: number
     }
     essentialCosts: Array<{ label: string; value: number; colorClass: string }>
-    regionalComparison: Array<{ province: string; housing: number; earnings: number }>
+    shelterBurdenByTenure: {
+      referencePeriod: string
+      threshold: string
+      summary: string
+      sourceNote: string
+      provinces: Array<{ province: string; owners: number; renters: number }>
+    }
   }
 }
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler)
 
-const isPrototypeEdition = ref(new URLSearchParams(window.location.search).get('edition') === 'prototype')
-const storyData = computed<StoryData>(() =>
-  (isPrototypeEdition.value ? prototypeStoryData : officialStoryData) as StoryData,
-)
+const storyData = officialStoryData as StoryData
 const activeChapter = ref('chapter-1')
 let chapterObserver: IntersectionObserver | undefined
 
-const priceVsEarningsData = computed(() => {
-  const figure = storyData.value.figures.priceVsEarnings
-  const labels = figure.seriesLabels ?? ['Illustrative cost index', 'Illustrative earnings index']
-
+const incomeRelativeData = computed(() => {
+  const figure = storyData.figures.housingIncomeComparison
   return {
     labels: figure.labels,
     datasets: [
       {
-        label: labels[0],
-        data: figure.costs,
+        label: 'New-house price growth / income growth',
+        data: figure.newHousingToIncome,
         borderColor: '#ed7756',
         backgroundColor: 'rgba(237, 119, 86, 0.12)',
         pointBackgroundColor: '#ed7756',
@@ -71,11 +85,21 @@ const priceVsEarningsData = computed(() => {
         tension: 0.35,
       },
       {
-        label: labels[1],
-        data: figure.earnings,
+        label: 'Shelter CPI growth / income growth',
+        data: figure.shelterToIncome,
         borderColor: '#3d9d87',
         backgroundColor: 'rgba(61, 157, 135, 0.12)',
         pointBackgroundColor: '#3d9d87',
+        borderWidth: 3,
+        pointRadius: 3,
+        tension: 0.35,
+      },
+      {
+        label: 'All-items CPI growth / income growth',
+        data: figure.allItemsToIncome,
+        borderColor: '#7595b0',
+        backgroundColor: 'rgba(117, 149, 176, 0.12)',
+        pointBackgroundColor: '#7595b0',
         borderWidth: 3,
         pointRadius: 3,
         tension: 0.35,
@@ -98,46 +122,29 @@ const lineOptions: ChartOptions<'line'> = {
   },
   scales: {
     x: { grid: { display: false }, ticks: { color: '#58645e' } },
-    y: { min: 95, max: 150, grid: { color: 'rgba(30, 50, 42, 0.09)' }, ticks: { color: '#58645e' } },
+    y: { min: 85, max: 110, grid: { color: 'rgba(30, 50, 42, 0.09)' }, ticks: { color: '#58645e' } },
   },
 }
 
-function editionHref(prototype: boolean) {
-  const url = new URL(window.location.href)
-  if (prototype) url.searchParams.set('edition', 'prototype')
-  else url.searchParams.delete('edition')
-  return `${url.pathname}${url.search}${url.hash}`
-}
-
 function sourceForTable(tableId: number) {
-  return storyData.value.meta.sources?.find((source) => source.tableId === tableId)
+  return storyData.meta.sources?.find((source) => source.tableId === tableId)
 }
 
 function indexBarWidth(value: number) {
-  return isPrototypeEdition.value
-    ? Math.min(100, value)
-    : Math.min(100, Math.max(0, ((value - 90) / 80) * 100))
+  return Math.min(100, Math.max(0, ((value - 90) / 80) * 100))
 }
 
 function categoryBarWidth(value: number) {
-  return isPrototypeEdition.value
-    ? Math.min(100, (value - 90) * 2)
-    : Math.min(100, Math.max(0, ((value - 90) / 60) * 100))
+  return Math.min(100, Math.max(0, ((value - 90) / 60) * 100))
 }
 
 function regionalBarWidth(value: number) {
-  return isPrototypeEdition.value
-    ? Math.min(100, value)
-    : Math.min(100, Math.max(0, ((value - 90) / 70) * 100))
+  return Math.min(100, Math.max(0, (value / 50) * 100))
 }
 
 function regionalChartLabel() {
-  if (isPrototypeEdition.value) {
-    return 'Fictional regional comparison of housing cost and earnings indexes; not official data.'
-  }
-
-  return storyData.value.figures.regionalComparison
-    .map((region) => `${region.province}: shelter CPI index ${region.housing}, average hourly wage index ${region.earnings}`)
+  return storyData.figures.shelterBurdenByTenure.provinces
+    .map((region) => `${region.province}: ${region.owners}% of owner households and ${region.renters}% of renter households spent 30% or more of income on shelter in 2021`)
     .join('; ')
 }
 
@@ -169,10 +176,6 @@ onUnmounted(() => chapterObserver?.disconnect())
         </a>
         <div class="masthead-meta">
           <span>Canada / Data story</span>
-          <div class="edition-picker" role="group" aria-label="Story data edition">
-            <a :href="editionHref(false)" :aria-current="!isPrototypeEdition ? 'page' : undefined">Official snapshot</a>
-            <a :href="editionHref(true)" :aria-current="isPrototypeEdition ? 'page' : undefined">Prototype</a>
-          </div>
           <span class="masthead-index">P302 <span aria-hidden="true">/</span> 2026</span>
         </div>
       </header>
@@ -189,19 +192,20 @@ onUnmounted(() => chapterObserver?.disconnect())
 
             <figure class="hero-figure">
               <div class="figure-topline">
-                <span>Purchasing power, in perspective</span>
+                <span>Price growth relative to household income</span>
                 <span class="figure-number">01 / 05</span>
               </div>
-              <div class="hero-chart" role="img" :aria-label="isPrototypeEdition ? 'Illustrative line chart comparing fictional cost and earnings indexes; not official data.' : storyData.figures.priceVsEarnings.summary">
-                <Line :data="priceVsEarningsData" :options="lineOptions" />
+              <div class="hero-chart" role="img" :aria-label="storyData.figures.housingIncomeComparison.summary">
+                <Line :data="incomeRelativeData" :options="lineOptions" />
               </div>
               <figcaption>
-                <span class="prototype-dot" :class="{ 'source-dot': !isPrototypeEdition }" aria-hidden="true"></span>
-                {{ storyData.figures.priceVsEarnings.sourceNote ?? 'Illustrative series only. Not official observations.' }}
+                <span class="prototype-dot source-dot" aria-hidden="true"></span>
+                {{ storyData.figures.housingIncomeComparison.sourceNote }}
               </figcaption>
-              <div v-if="!isPrototypeEdition" class="source-links" aria-label="Chart sources">
-                <a :href="sourceForTable(18100004)?.url" target="_blank" rel="noreferrer">CPI table 18-10-0004-01 ↗</a>
-                <a :href="sourceForTable(14100063)?.url" target="_blank" rel="noreferrer">Wages table 14-10-0063-01 ↗</a>
+              <div class="source-links" aria-label="Chart sources">
+                <a :href="sourceForTable(18100205)?.url" target="_blank" rel="noreferrer">New housing table 18-10-0205-01 ↗</a>
+                <a :href="sourceForTable(36100587)?.url" target="_blank" rel="noreferrer">Household income table 36-10-0587-01 ↗</a>
+                <a :href="sourceForTable(18100004)?.url" target="_blank" rel="noreferrer">Shelter CPI table 18-10-0004-01 ↗</a>
               </div>
             </figure>
           </div>
@@ -214,8 +218,8 @@ onUnmounted(() => chapterObserver?.disconnect())
 
         <div class="prototype-notice" role="note">
           <span class="notice-mark" aria-hidden="true">i</span>
-          <p><strong>{{ isPrototypeEdition ? 'Prototype edition.' : 'Official source snapshot.' }}</strong> {{ storyData.meta.status }} <span v-if="storyData.meta.lastRefreshedLabel">{{ storyData.meta.lastRefreshedLabel }}.</span></p>
-          <a href="#method-note">About this prototype</a>
+          <p><strong>Official source snapshot.</strong> {{ storyData.meta.status }} {{ storyData.meta.lastRefreshedLabel }}.</p>
+          <a href="#method-note">About the data</a>
         </div>
 
         <div class="story-layout">
@@ -241,9 +245,9 @@ onUnmounted(() => chapterObserver?.disconnect())
                 <p class="chapter-lede">A slower rise in prices does not take prices back to where they were. That distinction is easy to miss, and it matters to every household budgeting for essentials.</p>
               </div>
               <div class="chapter-body">
-                <p v-if="!isPrototypeEdition" class="data-summary">{{ storyData.figures.priceVsEarnings.summary }}</p>
+                <p class="data-summary">{{ storyData.figures.housingIncomeComparison.summary }}</p>
                 <p>Inflation describes how quickly prices change. The price level describes what things cost. When inflation eases, prices may still be rising, just more slowly. The accumulated change stays in the household budget.</p>
-                <p>To understand affordability, we need to look beyond a single month or a single rate. The cost of essentials, what people earn, and the place they live all shape the experience.</p>
+                <p>That is why affordability needs an income denominator. A national disposable-income average shows broad movement, but it can hide renters, first-time buyers, income groups and cities facing a very different ratio.</p>
                 <div class="pull-quote"><span aria-hidden="true">“</span><p>A slower climb is still a climb. The starting point has changed.</p></div>
                 <p class="chapter-transition"><span>Next</span> One part of the picture is how many people need a place to live, and how quickly homes are added.</p>
               </div>
@@ -259,10 +263,10 @@ onUnmounted(() => chapterObserver?.disconnect())
                 <p>Population is a count of residents; housing starts count units entering construction. The two measures can put demographic change beside building activity, but starts are not finished homes and the comparison does not measure whether supply meets local needs.</p>
                 <figure class="mini-chart">
                   <div class="mini-chart-heading">
-                    <div><span class="chart-index">FIG. 02</span><h3>{{ isPrototypeEdition ? 'Two measures, one shared baseline' : 'Population and housing starts, indexed' }}</h3></div>
-                    <span class="chart-unit">{{ isPrototypeEdition ? 'Illustrative index / 2016 = 100' : `Index / ${storyData.figures.populationHousing.startYear} = 100` }}</span>
+                    <div><span class="chart-index">FIG. 02</span><h3>Population and housing starts, indexed</h3></div>
+                    <span class="chart-unit">Index / {{ storyData.figures.populationHousing.startYear }} = 100</span>
                   </div>
-                  <div class="index-chart" role="img" :aria-label="isPrototypeEdition ? 'Fictional indexed example comparing population and housing; not official data.' : storyData.figures.populationHousing.summary">
+                  <div class="index-chart" role="img" :aria-label="storyData.figures.populationHousing.summary">
                     <div class="index-axis"><span>90</span><span>110</span><span>130</span><span>150</span><span>170</span></div>
                     <div v-for="series in storyData.figures.populationHousing.series" :key="series.label" class="index-row">
                       <span class="index-label"><i :class="series.colorClass"></i>{{ series.label }}</span>
@@ -271,13 +275,13 @@ onUnmounted(() => chapterObserver?.disconnect())
                     </div>
                     <div class="index-years"><span>{{ storyData.figures.populationHousing.startYear ?? 2016 }}</span><span>{{ storyData.figures.populationHousing.endYear ?? 2026 }}</span></div>
                   </div>
-                  <figcaption><span class="prototype-dot" :class="{ 'source-dot': !isPrototypeEdition }" aria-hidden="true"></span>{{ storyData.figures.populationHousing.sourceNote ?? 'Fictional demonstration values. Compare validated, compatible series before drawing conclusions.' }}</figcaption>
-                  <div v-if="!isPrototypeEdition" class="source-links" aria-label="Chart sources">
+                  <figcaption><span class="prototype-dot source-dot" aria-hidden="true"></span>{{ storyData.figures.populationHousing.sourceNote }}</figcaption>
+                  <div class="source-links" aria-label="Chart sources">
                     <a :href="sourceForTable(17100009)?.url" target="_blank" rel="noreferrer">Population table 17-10-0009-01 ↗</a>
                     <a :href="sourceForTable(34100135)?.url" target="_blank" rel="noreferrer">Housing table 34-10-0135-01 ↗</a>
                   </div>
                 </figure>
-                <p v-if="!isPrototypeEdition" class="data-summary">{{ storyData.figures.populationHousing.summary }}</p>
+                <p class="data-summary">{{ storyData.figures.populationHousing.summary }}</p>
                 <p class="chapter-transition"><span>Next</span> Even when earnings rise, the essentials people buy can rise at a different pace.</p>
               </div>
             </article>
@@ -293,9 +297,9 @@ onUnmounted(() => chapterObserver?.disconnect())
                 <figure class="mini-chart">
                   <div class="mini-chart-heading">
                     <div><span class="chart-index">FIG. 03</span><h3>Essential costs do not move in lockstep</h3></div>
-                    <span class="chart-unit">Index / {{ storyData.meta.monthlyBasePeriodLabel ?? '2016' }} = 100</span>
+                    <span class="chart-unit">Index / {{ storyData.meta.monthlyBasePeriodLabel }} = 100</span>
                   </div>
-                  <div class="category-chart" role="img" :aria-label="isPrototypeEdition ? 'Fictional indexed example comparing all-items, food, and shelter prices.' : `Statistics Canada CPI indexes for all items, food, and shelter; ${storyData.figures.priceVsEarnings.sourceNote}`">
+                  <div class="category-chart" role="img" :aria-label="`Statistics Canada CPI indexes for all items, food, and shelter; ${storyData.figures.housingIncomeComparison.sourceNote}`">
                     <div v-for="item in storyData.figures.essentialCosts" :key="item.label" class="category-row">
                       <span>{{ item.label }}</span>
                       <div class="category-track"><span :class="item.colorClass" :style="{ width: `${categoryBarWidth(item.value)}%` }"></span></div>
@@ -303,12 +307,12 @@ onUnmounted(() => chapterObserver?.disconnect())
                     </div>
                     <div class="category-axis"><span>90</span><span>110</span><span>130</span><span>150</span></div>
                   </div>
-                  <figcaption><span class="prototype-dot" :class="{ 'source-dot': !isPrototypeEdition }" aria-hidden="true"></span>{{ isPrototypeEdition ? 'Fictional demonstration values. Actual household spending patterns differ.' : 'Official CPI component indexes rebased to the same month in 2016. These are price indexes, not household budgets.' }}</figcaption>
-                  <div v-if="!isPrototypeEdition" class="source-links" aria-label="Chart source">
+                  <figcaption><span class="prototype-dot source-dot" aria-hidden="true"></span>Official CPI component indexes rebased to the same month in 2016. These are price indexes, not household budgets.</figcaption>
+                  <div class="source-links" aria-label="Chart source">
                     <a :href="sourceForTable(18100004)?.url" target="_blank" rel="noreferrer">CPI table 18-10-0004-01 ↗</a>
                   </div>
                 </figure>
-                <div class="definition-note"><strong>Keep the terms straight</strong><span>Price level: what something costs. Inflation: how quickly that price changes. Real wage growth: earnings growth adjusted for price changes.</span></div>
+                <div class="definition-note"><strong>Average wages did not lag overall prices</strong><span>{{ storyData.figures.priceVsEarnings.summary }} Average hourly wages are not household disposable income, and neither national average shows what an individual renter or buyer can afford locally.</span></div>
                 <p class="chapter-transition"><span>Next</span> Those pressures show up differently from one province to another.</p>
               </div>
             </article>
@@ -320,27 +324,26 @@ onUnmounted(() => chapterObserver?.disconnect())
                 <p class="chapter-lede">National numbers are useful for scale. They can also smooth over the different combinations of housing costs, population change and earnings found across provinces.</p>
               </div>
               <div class="chapter-body">
-                <p>A fair comparison needs the same measures and the same time window. It also needs room for the differences within each province: a provincial average is not a portrait of every city, rural community or household.</p>
+                <p>To see what broad price indexes miss, the Census asks how much income households actually spent on shelter. The 2021 snapshot shows a sharp difference by tenure, with substantial variation between provinces. It is a dated measure, but it is closer to lived affordability than price growth alone.</p>
                 <figure class="mini-chart">
                   <div class="mini-chart-heading">
-                    <div><span class="chart-index">FIG. 04</span><h3>{{ isPrototypeEdition ? 'One country, different starting points' : 'Shelter prices and hourly wages' }}</h3></div>
-                    <span class="chart-unit">{{ isPrototypeEdition ? 'Illustrative regional index' : `Index / ${storyData.meta.monthlyBasePeriodLabel} = 100` }}</span>
+                    <div><span class="chart-index">FIG. 04</span><h3>Housing takes a larger share of renter income</h3></div>
+                    <span class="chart-unit">{{ storyData.figures.shelterBurdenByTenure.referencePeriod }} / share of households</span>
                   </div>
                   <div class="region-chart" role="img" :aria-label="regionalChartLabel()">
-                    <div class="region-legend"><span><i class="legend-housing"></i>{{ isPrototypeEdition ? 'Housing cost' : 'Shelter CPI' }}</span><span><i class="legend-earnings"></i>{{ isPrototypeEdition ? 'Earnings' : 'Avg hourly wage' }}</span></div>
-                    <div v-for="region in storyData.figures.regionalComparison" :key="region.province" class="region-row">
+                    <div class="region-legend"><span><i class="burden-owner"></i>Owner households</span><span><i class="burden-renter"></i>Renter households</span></div>
+                    <div v-for="region in storyData.figures.shelterBurdenByTenure.provinces" :key="region.province" class="region-row">
                       <strong>{{ region.province }}</strong>
                       <div class="region-bars">
-                        <span class="legend-housing" :style="{ width: `${regionalBarWidth(region.housing)}%` }"></span>
-                        <span class="legend-earnings" :style="{ width: `${regionalBarWidth(region.earnings)}%` }"></span>
+                        <span class="burden-owner" :style="{ width: `${regionalBarWidth(region.owners)}%` }"></span>
+                        <span class="burden-renter" :style="{ width: `${regionalBarWidth(region.renters)}%` }"></span>
                       </div>
-                      <div class="region-values" aria-hidden="true"><span>{{ region.housing.toFixed(1) }}</span><span>{{ region.earnings.toFixed(1) }}</span></div>
+                      <div class="region-values" aria-hidden="true"><span>{{ region.owners.toFixed(1) }}%</span><span>{{ region.renters.toFixed(1) }}%</span></div>
                     </div>
                   </div>
-                  <figcaption><span class="prototype-dot" :class="{ 'source-dot': !isPrototypeEdition }" aria-hidden="true"></span>{{ isPrototypeEdition ? 'Fictional demonstration values. Geography and period must be aligned for a real comparison.' : `Statistics Canada shelter CPI and average hourly wage indexes by province, not adjusted for seasonality; ${storyData.meta.monthlyBasePeriodLabel} to ${storyData.meta.latestMonthlyPeriodLabel}.` }}</figcaption>
-                  <div v-if="!isPrototypeEdition" class="source-links" aria-label="Regional chart sources">
-                    <a :href="sourceForTable(18100004)?.url" target="_blank" rel="noreferrer">CPI table 18-10-0004-01 ↗</a>
-                    <a :href="sourceForTable(14100063)?.url" target="_blank" rel="noreferrer">Wages table 14-10-0063-01 ↗</a>
+                  <figcaption><span class="prototype-dot source-dot" aria-hidden="true"></span>{{ storyData.figures.shelterBurdenByTenure.summary }} {{ storyData.figures.shelterBurdenByTenure.sourceNote }}</figcaption>
+                  <div class="source-links" aria-label="Regional chart sources">
+                    <a :href="sourceForTable(98100252)?.url" target="_blank" rel="noreferrer">Census table 98-10-0252-01 ↗</a>
                   </div>
                 </figure>
                 <p class="chapter-transition"><span>Next</span> So which measures help us tell whether the gap is narrowing or widening?</p>
@@ -367,8 +370,7 @@ onUnmounted(() => chapterObserver?.disconnect())
             <section id="method-note" class="method-note" aria-labelledby="method-title">
               <p class="chapter-kicker">About this story</p>
               <h2 id="method-title">Evidence before certainty.</h2>
-              <p v-if="isPrototypeEdition">This edition keeps the original fictional demonstration values as a rollback baseline. They are not observations, estimates, forecasts or official statistics.</p>
-              <p v-else>This edition is a local snapshot retrieved from official Statistics Canada tables, including CMHC housing starts published through Statistics Canada. The browser makes no live request; run the data refresh command to retrieve a newer snapshot. The measures are descriptive, not proof of causation, and reference periods differ by source.</p>
+              <p>This page uses a local snapshot retrieved from official Statistics Canada tables, including CMHC housing starts published through Statistics Canada. The browser makes no live request; run the data refresh command to retrieve a newer snapshot. The measures are descriptive, not proof of causation, and reference periods differ by source. The earlier fictional dataset is retained separately in the project for rollback.</p>
               <a href="#top">Back to the beginning ↑</a>
             </section>
           </div>

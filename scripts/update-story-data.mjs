@@ -2,7 +2,7 @@ import { writeFile } from 'node:fs/promises'
 
 const apiBase = 'https://www150.statcan.gc.ca/t1/wds/rest'
 const outputPath = new URL('../src/data/affordability-story-live.json', import.meta.url)
-const tableIds = [18100004, 17100009, 14100063, 34100135]
+const tableIds = [18100004, 17100009, 14100063, 18100205, 34100135, 36100587, 98100252]
 const provinces = [
   'Newfoundland and Labrador',
   'Prince Edward Island',
@@ -24,7 +24,8 @@ async function post(method, payload) {
   })
 
   if (!response.ok) {
-    throw new Error(`${method} failed with HTTP ${response.status}`)
+    const details = await response.text()
+    throw new Error(`${method} failed with HTTP ${response.status}: ${details.slice(0, 500)}`)
   }
 
   const result = await response.json()
@@ -120,7 +121,10 @@ for (const productId of tableIds) {
 const cpi = cubes.get(18100004)
 const population = cubes.get(17100009)
 const wages = cubes.get(14100063)
+const newHousingPrices = cubes.get(18100205)
 const housing = cubes.get(34100135)
+const householdAccounts = cubes.get(36100587)
+const shelterBurdenTable = cubes.get(98100252)
 const specs = []
 
 for (const product of ['All-items', 'Food', 'Shelter']) {
@@ -150,6 +154,34 @@ for (const geography of ['Canada']) {
     'Type of unit': 'Total units',
     'Seasonal adjustment': 'Unadjusted',
   }, 50)
+  addSeries(specs, newHousingPrices, geography, `new-housing:${geography}`, {
+    'New housing price indexes': 'Total (house and land)',
+  }, 150)
+  addSeries(specs, householdAccounts, geography, `disposable-income:${geography}`, {
+    Statistics: 'Value per household',
+    Characteristics: 'All households',
+    'Income, consumption and savings': 'Household disposable income',
+  }, 35)
+}
+
+const censusDimensions = {
+  'Household total income groups (14)': 'Total - Total income of household',
+  'Household type including census family structure (16)': 'Total - Household type including census family structure',
+  'Housing suitability (3)': 'Total - Housing suitability',
+  'Dwelling condition (3)': 'Total - Dwelling condition',
+  'Statistics (3C)': 'Number of private households',
+}
+
+for (const geography of ['Canada', ...provinces]) {
+  for (const [tenure, tenureLabel] of [['owner', 'Owner'], ['renter', 'Renter']]) {
+    for (const [ratio, ratioLabel] of [['all', 'Total - Shelter-cost-to-income ratio'], ['30plus', 'Spending 30% or more of income on shelter costs']]) {
+      addSeries(specs, shelterBurdenTable, geography, `shelter-burden:${geography}:${tenure}:${ratio}`, {
+        ...censusDimensions,
+        'Shelter-cost-to-income ratio (5)': ratioLabel,
+        'Tenure (3)': tenureLabel,
+      }, 1)
+    }
+  }
 }
 
 const records = new Map()
@@ -238,6 +270,10 @@ const populationStart = populationForYear(startYear)
 const populationEnd = populationForYear(endYear)
 const startsStart = startsByYear.get(startYear)
 const startsEnd = startsByYear.get(endYear)
+const startsPerThousandStart = round((startsStart / populationStart) * 1000, 2)
+const startsPerThousandEnd = round((startsEnd / populationEnd) * 1000, 2)
+const startsAtPopulationPace = Math.round(startsStart * (populationEnd / populationStart))
+const startsAbovePopulationPace = startsEnd - startsAtPopulationPace
 const populationHousing = {
   startYear,
   endYear,
@@ -245,8 +281,82 @@ const populationHousing = {
     { label: 'Population estimate (July 1)', value: toIndex(populationEnd, populationStart), colorClass: 'population-color' },
     { label: 'Housing starts (calendar-year total)', value: toIndex(startsEnd, startsStart), colorClass: 'housing-color' },
   ],
-  summary: `From ${startYear} to ${endYear}, the July 1 population estimate changed ${round(((populationEnd / populationStart) - 1) * 100)}%; annual housing starts changed ${round(((startsEnd / startsStart) - 1) * 100)}%. Starts are not completions or occupied homes.`,
-  sourceNote: `Statistics Canada tables 17-10-0009-01 and 34-10-0135-01. Population is a July 1 stock estimate; housing starts are unadjusted total units started during each calendar year. Both are indexed to ${startYear} = 100, but are different measures and do not establish housing adequacy.`,
+  startsPerThousand: [startsPerThousandStart, startsPerThousandEnd],
+  startsAtPopulationPace,
+  startsAbovePopulationPace,
+  actualEndStarts: startsEnd,
+  summary: `From ${startYear} to ${endYear}, population grew ${round(((populationEnd / populationStart) - 1) * 100)}% and annual housing starts grew ${round(((startsEnd / startsStart) - 1) * 100)}. Starts rose from ${startsPerThousandStart} to ${startsPerThousandEnd} per 1,000 residents. If starts had only grown with population, ${endYear} would have had about ${startsAtPopulationPace.toLocaleString('en-CA')} starts; the actual total was ${startsEnd.toLocaleString('en-CA')}, about ${startsAbovePopulationPace.toLocaleString('en-CA')} above that benchmark. This simple benchmark is not an estimate of homes needed.`,
+  sourceNote: `Statistics Canada tables 17-10-0009-01 and 34-10-0135-01. Population is a July 1 stock estimate; housing starts are unadjusted total units started during each calendar year. Starts are not completions or occupied homes. Matching starts growth to population alone does not account for household size, existing shortages, demolitions, location, or unit type.`,
+}
+
+const newHousingPoints = getSeries(records, 18100205, 'new-housing:Canada')
+const disposableIncomePoints = getSeries(records, 36100587, 'disposable-income:Canada')
+const annualYears = disposableIncomePoints
+  .map((point) => Number(point.refPer.slice(0, 4)))
+  .filter((year) => year >= 2016 && newHousingPoints.some((point) => point.refPer === `${year}-12-01`))
+  .sort((left, right) => left - right)
+const annualIncome = (year) => pointAt(disposableIncomePoints, `${year}-01-01`, `household disposable income for ${year}`)
+const annualNewHousing = (year) => pointAt(newHousingPoints, `${year}-12-01`, `new housing price index for ${year}`)
+const annualAllItems = (year) => pointAt(getSeries(records, 18100004, 'cpi:Canada:All-items'), `${year}-12-01`, `all-items CPI for ${year}`)
+const annualShelter = (year) => pointAt(getSeries(records, 18100004, 'cpi:Canada:Shelter'), `${year}-12-01`, `shelter CPI for ${year}`)
+const incomeBase = annualIncome(annualYears[0])
+const housingBase = annualNewHousing(annualYears[0])
+const allItemsBase = annualAllItems(annualYears[0])
+const shelterBase = annualShelter(annualYears[0])
+const housingIncomeRatio = annualYears.map((year) => round(
+  toIndex(annualNewHousing(year), housingBase) / toIndex(annualIncome(year), incomeBase) * 100,
+))
+const shelterIncomeRatio = annualYears.map((year) => round(
+  toIndex(annualShelter(year), shelterBase) / toIndex(annualIncome(year), incomeBase) * 100,
+))
+const allItemsIncomeRatio = annualYears.map((year) => round(
+  toIndex(annualAllItems(year), allItemsBase) / toIndex(annualIncome(year), incomeBase) * 100,
+))
+const ratioPeak = Math.max(...housingIncomeRatio)
+const ratioPeakYear = annualYears[housingIncomeRatio.indexOf(ratioPeak)]
+const householdIncomeGrowth = round(((annualIncome(annualYears.at(-1)) / incomeBase) - 1) * 100)
+const newHousingGrowth = round(((annualNewHousing(annualYears.at(-1)) / housingBase) - 1) * 100)
+const shelterCpiGrowth = round(((annualShelter(annualYears.at(-1)) / shelterBase) - 1) * 100)
+const housingIncomeComparison = {
+  labels: annualYears.map(String),
+  newHousingToIncome: housingIncomeRatio,
+  shelterToIncome: shelterIncomeRatio,
+  allItemsToIncome: allItemsIncomeRatio,
+  ratioPeakYear,
+  ratioPeak,
+  latestYear: annualYears.at(-1),
+  householdIncomeGrowth,
+  newHousingGrowth,
+  shelterCpiGrowth,
+  summary: `From ${annualYears[0]} to ${annualYears.at(-1)}, nominal disposable income per household rose ${householdIncomeGrowth}%, the new housing price index rose ${newHousingGrowth}%, and shelter CPI rose ${shelterCpiGrowth}%. The new-housing-price growth ratio peaked at ${ratioPeak} in ${ratioPeakYear}, then eased. This is a national growth comparison, not a direct home-price-to-income affordability measure.`,
+  sourceNote: `Statistics Canada tables 18-10-0205-01, 36-10-0587-01, and 18-10-0004-01. December all-items, shelter, and new-housing indexes are compared with annual nominal disposable income per household. In this growth-ratio chart, 100 means price and income grew at the same rate since 2016; above 100 means the selected price index grew faster. This is not the share of income spent on housing.`,
+}
+
+const shelterBurdenByTenure = {
+  referencePeriod: '2021 Census',
+  threshold: '30% or more of household income spent on shelter costs',
+  provinces: ['Canada', ...provinces].map((geography) => {
+    const shareAtThreshold = (tenure) => {
+      const allHouseholds = getSeries(records, 98100252, `shelter-burden:${geography}:${tenure}:all`)
+      const burdenedHouseholds = getSeries(records, 98100252, `shelter-burden:${geography}:${tenure}:30plus`)
+      const denominator = allHouseholds.at(-1).value
+      const numerator = burdenedHouseholds.at(-1).value
+
+      if (denominator <= 0 || numerator < 0 || numerator > denominator) {
+        throw new Error(`Invalid 2021 shelter-cost share for ${geography}, ${tenure}`)
+      }
+
+      return round((numerator / denominator) * 100)
+    }
+
+    return {
+      province: geography === 'British Columbia' ? 'B.C.' : geography,
+      owners: shareAtThreshold('owner'),
+      renters: shareAtThreshold('renter'),
+    }
+  }),
+  summary: 'The 2021 Census measured the share of owner and renter households spending 30% or more of household income on shelter. The threshold is a common indicator, not a complete definition of affordability.',
+  sourceNote: 'Statistics Canada 2021 Census table 98-10-0252-01. Cross-sectional household share by province and tenure; not a current time series.',
 }
 
 const latestMonthlyRegion = monthlyCommonDates.at(-1)
@@ -313,8 +423,10 @@ const liveData = {
       ...priceVsEarnings,
       summary: `From ${monthLabel(sampledDates[0])} to ${monthLabel(sampledDates.at(-1))}, Canada's all-items CPI rose ${round(priceVsEarnings.costs.at(-1) - 100)}%; average hourly wages rose ${round(priceVsEarnings.earnings.at(-1) - 100)}%. These national averages do not describe every household or worker.`,
     },
+    housingIncomeComparison,
     populationHousing,
     essentialCosts,
+    shelterBurdenByTenure,
     regionalComparison,
   },
 }

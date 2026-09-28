@@ -6,15 +6,15 @@ Open with the change readers recognize in daily costs. Establish a clear time co
 
 ## 2. People and Homebuilding Move at Different Speeds
 
-Compare population estimates with housing starts, while making the stock-versus-flow distinction explicit. Starts are not completed homes. Avoid claiming that population grew faster than housing unless compatible evidence supports that exact claim.
+Compare population estimates with housing starts per 1,000 residents. Show a simple population-proportional benchmark, then explain why it cannot tell us how many homes were needed: starts are not completions, households, or available homes, and the calculation ignores existing shortages and regional fit.
 
 ## 3. Inflation Added Pressure
 
-Show how broad inflation and selected essentials changed, then compare those price indexes with average hourly wages. Explain that an average wage series is not a fixed-worker earnings path or a complete measure of household purchasing power.
+Show how broad inflation and selected essentials changed relative to household disposable income. National averages show shelter CPI slightly outpacing disposable income per household from 2016 to 2025, while new-house prices peaked relative to income growth in 2022 and then eased. Do not generalize this path to every household or market.
 
 ## 4. Canada Is Not One Story
 
-Compare provinces using consistent measures and periods. Highlight meaningful differences while noting that provincial averages do not describe every household or community.
+Show the 2021 Census share of owner and renter households spending at least 30% of income on shelter by province. Contrast this direct burden measure with the longer-run price-growth charts, and label it as a single-year snapshot rather than a current trend.
 
 ## 5. What Canadians Should Watch Next
 

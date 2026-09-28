@@ -25,7 +25,7 @@ Help readers understand how population growth, housing supply, inflation, and wa
 ## Narrative structure
 
 1. **Canada feels more expensive.** Establish the lived experience and show how the cost of a representative basket or household essentials changed over time.
-2. **People and homebuilding move at different speeds.** Compare population estimates with housing starts, explaining that one is a population stock and the other a construction flow. Do not equate starts with completed homes.
+2. **People and homebuilding move at different speeds.** Compare population estimates with housing starts per 1,000 residents. Explain that one is a population stock and the other a construction flow. The population-proportional benchmark is not an estimate of homes needed; do not equate starts with completed homes.
 3. **Inflation added pressure.** Show how broad price changes, essential categories, and wage growth affect purchasing power; distinguish price levels from inflation rates.
 4. **Canada is not one story.** Compare provincial experiences using consistent measures and periods, and make variation visible without implying every household experiences the provincial average.
 5. **What Canadians should watch next.** Bring the evidence together and identify indicators that can help readers follow affordability pressures over time.
@@ -47,11 +47,11 @@ The sequence builds one argument. Each chapter should have a headline, a short e
 
 The reader enters at the opening chapter, follows the story through its five chapters, and can use in-page chapter navigation to understand progress and revisit evidence. Charts and annotations support the prose rather than compete with it.
 
-Readers can inspect source, geography, unit, frequency, and reference period near each official-data visualization. Fictional prototype values remain visibly identified as illustrative.
+Readers can inspect source, geography, unit, frequency, and reference period near each official-data visualization. The fictional dataset is retained outside the interface as a rollback copy.
 
 ## Evidence and data strategy
 
-The first complete version uses a locally stored official snapshot from Statistics Canada tables, including CMHC housing data distributed through Statistics Canada. The previous fictional dataset remains available as a separate prototype edition for comparison and rollback. Browser components read local JSON only; `npm run data:update` refreshes the official snapshot while online.
+The first complete version uses a locally stored official snapshot from Statistics Canada tables, including CMHC housing data distributed through Statistics Canada. The previous fictional dataset remains unchanged as a rollback copy but is not exposed in the interface. Browser components read local JSON only; `npm run data:update` refreshes the official snapshot while online.
 
 Before a measure is used, document its definition, source series or table, geography, unit, frequency, seasonal-adjustment status where relevant, reference period, comparison method, and interpretation. The updater records table, vector, coordinate, and period metadata. Keep missing and suppressed observations distinct from zero. Do not invent values or imply unsupported causation.
 
@@ -64,6 +64,8 @@ The first sourced edition uses:
 - Quarterly population estimates
 - Quarterly, unadjusted total housing starts, summed by calendar year for the population/building-activity comparison
 - Provincial shelter CPI and average hourly wage series for regional context
+- New housing price index compared with household disposable income per household
+- 2021 Census share of owner and renter households spending 30% or more of income on shelter, by province
 
 Exact table IDs, dimensions, transformations, and limitations are documented in `docs/DATA-DICTIONARY.md`.
 
@@ -75,7 +77,7 @@ The story is initially a single-page application. Native anchors and in-page nav
 
 ## Application architecture
 
-Vue presentation layer → story data and typed content model → local official/prototype snapshots → explicit refresh script.
+Vue presentation layer → story data and typed content model → local official snapshot → explicit refresh script. Keep the fictional rollback dataset separate from the rendered app.
 
 Keep source and transformation concerns out of presentation components. Normalize data before it reaches visual components, and preserve metadata needed for source notes and caveats.
 
@@ -88,6 +90,7 @@ Only create files with a concrete responsibility. Do not retain dashboard-specif
 - Show the observation period separately from publication or retrieval dates.
 - Preserve units, geography, frequency, and source metadata.
 - Keep price level, inflation rate, nominal wage growth, and real wage growth conceptually distinct.
+- Use household disposable income as an explicit denominator for national housing-cost growth comparisons; do not call an indexed growth comparison a direct affordability ratio.
 - Do not describe an average hourly wage series as a real wage or the earnings path of a fixed worker.
 - Do not equate housing starts with completions, occupied homes, or housing adequacy.
 - Compare measures only when their periods and definitions are compatible.
@@ -115,10 +118,10 @@ Motion should support chapter progression or reveal relationships, respect reduc
 
 - The five-chapter story is navigable and readable on mobile and desktop.
 - The official snapshot refreshes from documented public tables and builds locally without runtime data requests.
-- The fictional baseline remains one action away for comparison and rollback.
+- The fictional baseline remains preserved in its separate JSON file for manual rollback; it is not selectable in the interface.
 - The narrative communicates the connection among housing, population growth, inflation, and wages without asserting a single cause.
 - Regional differences are shown using comparable, explained measures.
 - Every displayed measure has visible source context and a reference period.
-- Prototype data is unmistakable and no illustrative number appears to be a live official statistic.
+- Any illustrative values shown in future remain unmistakably labeled and are never presented as live official statistics.
 - Missing or unavailable evidence does not become zero or disappear silently.
 - The production build completes successfully.

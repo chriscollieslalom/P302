@@ -2,7 +2,7 @@
 
 The Affordability Gap is an independent Protogen P302 interactive data story about how housing, population growth, inflation, wages, and regional differences interact to shape affordability pressures in Canada.
 
-The experience unfolds in five chapters. It is a narrative data story, not a dashboard, and uses clearly identified local prototype data before any live sources are connected.
+The experience unfolds in five chapters. It is a narrative data story, not a dashboard. The current edition uses a local snapshot of official data; the earlier fictional dataset is preserved separately for rollback.
 
 This educational prototype is not an official Government of Canada product and does not provide policy advice.
 
@@ -44,9 +44,9 @@ npm run build
 - `docs/DATA-DICTIONARY.md`: Measure definitions and validation requirements
 - `docs/DATA-SOURCES.md`: Candidate providers and integration guidance
 
-## Data editions
+## Refreshing the snapshot
 
-The app opens with a locally stored snapshot of official Statistics Canada data, including CMHC housing-start data distributed through Statistics Canada. The **Prototype** control in the header switches back to the preserved fictional baseline. Neither edition makes data requests from the browser.
+The app opens with a locally stored snapshot of official Statistics Canada data, including CMHC housing-start data distributed through Statistics Canada. The earlier fictional dataset remains unchanged at `src/data/affordability-story.json` as a rollback copy, but is not exposed in the interface. The browser makes no live data requests.
 
 Refresh the official snapshot while online:
 
