@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "title": "The Affordability Gap",
+    "status": "Fictional demonstration values; not official observations"
+  },
+  "chapters": [
+    { "id": "chapter-1", "number": "01", "navTitle": "The pressure" },
+    { "id": "chapter-2", "number": "02", "navTitle": "People and homes" },
+    { "id": "chapter-3", "number": "03", "navTitle": "Prices and pay" },
+    { "id": "chapter-4", "number": "04", "navTitle": "Regional differences" },
+    { "id": "chapter-5", "number": "05", "navTitle": "Looking ahead" }
+  ],
+  "figures": {
+    "priceVsEarnings": {
+      "labels": ["2016", "2018", "2020", "2022", "2024", "2026"],
+      "costs": [100, 104, 110, 122, 131, 136],
+      "earnings": [100, 103, 108, 113, 118, 123]
+    },
+    "populationHousing": {
+      "series": [
+        { "label": "Population", "value": 127, "colorClass": "population-color" },
+        { "label": "Homes completed", "value": 119, "colorClass": "housing-color" }
+      ]
+    },
+    "essentialCosts": [
+      { "label": "All items", "value": 116, "colorClass": "essential-overall" },
+      { "label": "Food", "value": 124, "colorClass": "essential-food" },
+      { "label": "Shelter", "value": 132, "colorClass": "essential-shelter" }
+    ],
+    "regionalComparison": [
+      { "province": "B.C.", "housing": 86, "earnings": 66 },
+      { "province": "Ontario", "housing": 82, "earnings": 72 },
+      { "province": "Quebec", "housing": 67, "earnings": 64 },
+      { "province": "Alberta", "housing": 71, "earnings": 74 },
+      { "province": "Nova Scotia", "housing": 75, "earnings": 61 }
+    ]
+  }
+}
