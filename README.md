@@ -44,6 +44,14 @@ npm run build
 - `docs/DATA-DICTIONARY.md`: Measure definitions and validation requirements
 - `docs/DATA-SOURCES.md`: Candidate providers and integration guidance
 
-## Data approach
+## Data editions
 
-Prototype story data is kept locally so the narrative works without a network connection. Every illustrative value must be labelled as prototype data. A measure must be defined and its source validated before live integration.
+The app opens with a locally stored snapshot of official Statistics Canada data, including CMHC housing-start data distributed through Statistics Canada. The **Prototype** control in the header switches back to the preserved fictional baseline. Neither edition makes data requests from the browser.
+
+Refresh the official snapshot while online:
+
+```bash
+npm run data:update
+```
+
+The update script validates table metadata and observations before replacing `src/data/affordability-story-live.json`. The page displays the snapshot retrieval date and each figure's reference period. See `docs/DATA-SOURCES.md` and `docs/DATA-DICTIONARY.md` for definitions and limitations.

@@ -25,7 +25,7 @@ Help readers understand how population growth, housing supply, inflation, and wa
 ## Narrative structure
 
 1. **Canada feels more expensive.** Establish the lived experience and show how the cost of a representative basket or household essentials changed over time.
-2. **Population grew faster than housing.** Compare population change with housing supply over a consistent period and explain the limits of a simple one-to-one comparison.
+2. **People and homebuilding move at different speeds.** Compare population estimates with housing starts, explaining that one is a population stock and the other a construction flow. Do not equate starts with completed homes.
 3. **Inflation added pressure.** Show how broad price changes, essential categories, and wage growth affect purchasing power; distinguish price levels from inflation rates.
 4. **Canada is not one story.** Compare provincial experiences using consistent measures and periods, and make variation visible without implying every household experiences the provincial average.
 5. **What Canadians should watch next.** Bring the evidence together and identify indicators that can help readers follow affordability pressures over time.
@@ -38,7 +38,7 @@ The sequence builds one argument. Each chapter should have a headline, a short e
 - Multiple contributing forces over single-cause explanations
 - Evidence and caveats over artificial precision
 - Clear definitions and comparable time periods
-- Local prototype data before live integrations
+- Local snapshots before browser-side data integrations
 - Accessibility and mobile reading from the beginning
 - One complete story before feature expansion
 - No dependency or abstraction without a demonstrated need
@@ -47,25 +47,25 @@ The sequence builds one argument. Each chapter should have a headline, a short e
 
 The reader enters at the opening chapter, follows the story through its five chapters, and can use in-page chapter navigation to understand progress and revisit evidence. Charts and annotations support the prose rather than compete with it.
 
-Readers can inspect source, geography, unit, frequency, and reference period near the relevant visualization. Prototype values remain visibly identified as illustrative throughout.
+Readers can inspect source, geography, unit, frequency, and reference period near each official-data visualization. Fictional prototype values remain visibly identified as illustrative.
 
 ## Evidence and data strategy
 
-Use local prototype data for the first complete version. Potential sources include Statistics Canada, the Bank of Canada, CMHC, and relevant Government of Canada open datasets. Select sources based on the exact claim and measure needed; do not assume a catalogue record is the underlying data.
+The first complete version uses a locally stored official snapshot from Statistics Canada tables, including CMHC housing data distributed through Statistics Canada. The previous fictional dataset remains available as a separate prototype edition for comparison and rollback. Browser components read local JSON only; `npm run data:update` refreshes the official snapshot while online.
 
-Before a measure is used, document its definition, source series or table, geography, unit, frequency, seasonal-adjustment status where relevant, reference period, comparison method, and interpretation. Keep missing and suppressed observations distinct from zero. Do not invent values or imply unsupported causation.
+Before a measure is used, document its definition, source series or table, geography, unit, frequency, seasonal-adjustment status where relevant, reference period, comparison method, and interpretation. The updater records table, vector, coordinate, and period metadata. Keep missing and suppressed observations distinct from zero. Do not invent values or imply unsupported causation.
 
 ## Initial story measures
 
-The story may require:
+The first sourced edition uses:
 
-- Consumer price changes, including selected essential categories
-- Population growth
-- Housing starts, completions, or another clearly defined supply measure
-- Wage growth and, where defensible, real wage growth
-- Comparable provincial measures for the regional chapter
+- Monthly, not seasonally adjusted CPI for all items, food, and shelter
+- Monthly average hourly wage rates for all industries, both full- and part-time employees, all genders, age 15+
+- Quarterly population estimates
+- Quarterly, unadjusted total housing starts, summed by calendar year for the population/building-activity comparison
+- Provincial shelter CPI and average hourly wage series for regional context
 
-Exact series, periods, and transformations remain to be validated and documented in `docs/DATA-DICTIONARY.md` before live data integration.
+Exact table IDs, dimensions, transformations, and limitations are documented in `docs/DATA-DICTIONARY.md`.
 
 ## Technical stack
 
@@ -75,7 +75,7 @@ The story is initially a single-page application. Native anchors and in-page nav
 
 ## Application architecture
 
-Vue presentation layer → story data and typed content model → local prototype dataset → future source adapters, if justified.
+Vue presentation layer → story data and typed content model → local official/prototype snapshots → explicit refresh script.
 
 Keep source and transformation concerns out of presentation components. Normalize data before it reaches visual components, and preserve metadata needed for source notes and caveats.
 
@@ -84,9 +84,12 @@ Only create files with a concrete responsibility. Do not retain dashboard-specif
 ## Data and interpretation requirements
 
 - Label all illustrative values as prototype data.
+- Identify official data as a locally cached snapshot, not a live browser feed.
 - Show the observation period separately from publication or retrieval dates.
 - Preserve units, geography, frequency, and source metadata.
 - Keep price level, inflation rate, nominal wage growth, and real wage growth conceptually distinct.
+- Do not describe an average hourly wage series as a real wage or the earnings path of a fixed worker.
+- Do not equate housing starts with completions, occupied homes, or housing adequacy.
 - Compare measures only when their periods and definitions are compatible.
 - State when a comparison is descriptive and does not establish causation.
 - Treat missing, suppressed, unavailable, and stale values explicitly.
@@ -111,6 +114,8 @@ Motion should support chapter progression or reveal relationships, respect reduc
 ## Completion criteria
 
 - The five-chapter story is navigable and readable on mobile and desktop.
+- The official snapshot refreshes from documented public tables and builds locally without runtime data requests.
+- The fictional baseline remains one action away for comparison and rollback.
 - The narrative communicates the connection among housing, population growth, inflation, and wages without asserting a single cause.
 - Regional differences are shown using comparable, explained measures.
 - Every displayed measure has visible source context and a reference period.

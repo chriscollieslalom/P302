@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "data:update": "node scripts/update-story-data.mjs",
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview"
   },

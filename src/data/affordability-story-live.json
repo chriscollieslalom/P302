@@ -1,0 +1,419 @@
+{
+  "meta": {
+    "title": "The Affordability Gap",
+    "edition": "official",
+    "status": "Official Statistics Canada and CMHC source snapshot; reference periods vary by figure.",
+    "fetchedAt": "2026-09-28T21:08:06.245Z",
+    "lastRefreshedLabel": "Source snapshot retrieved 2026-09-28",
+    "monthlyBasePeriodLabel": "August 2016",
+    "latestMonthlyPeriodLabel": "August 2026",
+    "sources": [
+      {
+        "organization": "Statistics Canada",
+        "tableId": 18100004,
+        "tableNumber": "18-10-0004-01",
+        "title": "Consumer Price Index, monthly, not seasonally adjusted",
+        "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1810000401",
+        "frequencyCode": 6,
+        "latestReferencePeriod": "2026-08-01",
+        "releaseTime": "2026-09-14T08:30",
+        "series": [
+          {
+            "key": "cpi:Canada:All-items",
+            "geography": "Canada",
+            "coordinate": "2.2.0.0.0.0.0.0.0.0",
+            "vectorId": 41690973,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "cpi:Canada:Food",
+            "geography": "Canada",
+            "coordinate": "2.3.0.0.0.0.0.0.0.0",
+            "vectorId": 41690974,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "cpi:Canada:Shelter",
+            "geography": "Canada",
+            "coordinate": "2.79.0.0.0.0.0.0.0.0",
+            "vectorId": 41691050,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "cpi:Newfoundland and Labrador:Shelter",
+            "geography": "Newfoundland and Labrador",
+            "coordinate": "3.79.0.0.0.0.0.0.0.0",
+            "vectorId": 41691277,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "cpi:Prince Edward Island:Shelter",
+            "geography": "Prince Edward Island",
+            "coordinate": "5.79.0.0.0.0.0.0.0.0",
+            "vectorId": 41691412,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "cpi:Nova Scotia:Shelter",
+            "geography": "Nova Scotia",
+            "coordinate": "7.79.0.0.0.0.0.0.0.0",
+            "vectorId": 41691546,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "cpi:New Brunswick:Shelter",
+            "geography": "New Brunswick",
+            "coordinate": "9.79.0.0.0.0.0.0.0.0",
+            "vectorId": 41691681,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "cpi:Quebec:Shelter",
+            "geography": "Quebec",
+            "coordinate": "11.79.0.0.0.0.0.0.0.0",
+            "vectorId": 41691816,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "cpi:Ontario:Shelter",
+            "geography": "Ontario",
+            "coordinate": "14.79.0.0.0.0.0.0.0.0",
+            "vectorId": 41691952,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "cpi:Manitoba:Shelter",
+            "geography": "Manitoba",
+            "coordinate": "18.79.0.0.0.0.0.0.0.0",
+            "vectorId": 41692088,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "cpi:Saskatchewan:Shelter",
+            "geography": "Saskatchewan",
+            "coordinate": "20.79.0.0.0.0.0.0.0.0",
+            "vectorId": 41692224,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "cpi:Alberta:Shelter",
+            "geography": "Alberta",
+            "coordinate": "23.79.0.0.0.0.0.0.0.0",
+            "vectorId": 41692360,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "cpi:British Columbia:Shelter",
+            "geography": "British Columbia",
+            "coordinate": "26.79.0.0.0.0.0.0.0.0",
+            "vectorId": 41692495,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          }
+        ]
+      },
+      {
+        "organization": "Statistics Canada",
+        "tableId": 17100009,
+        "tableNumber": "17-10-0009-01",
+        "title": "Population estimates, quarterly",
+        "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710000901",
+        "frequencyCode": 21,
+        "latestReferencePeriod": "2026-07-01",
+        "releaseTime": "2026-09-23T08:30",
+        "series": [
+          {
+            "key": "population:Canada",
+            "geography": "Canada",
+            "coordinate": "1.0.0.0.0.0.0.0.0.0",
+            "vectorId": 1,
+            "firstReferencePeriod": "2014-04-01",
+            "latestReferencePeriod": "2026-07-01"
+          }
+        ]
+      },
+      {
+        "organization": "Statistics Canada",
+        "tableId": 14100063,
+        "tableNumber": "14-10-0063-01",
+        "title": "Employee wages by industry, monthly, unadjusted for seasonality",
+        "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1410006301",
+        "frequencyCode": 6,
+        "latestReferencePeriod": "2026-08-01",
+        "releaseTime": "2026-09-04T08:30",
+        "series": [
+          {
+            "key": "wages:Canada",
+            "geography": "Canada",
+            "coordinate": "1.2.1.1.1.1.0.0.0.0",
+            "vectorId": 2132579,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "wages:Newfoundland and Labrador",
+            "geography": "Newfoundland and Labrador",
+            "coordinate": "2.2.1.1.1.1.0.0.0.0",
+            "vectorId": 2135999,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "wages:Prince Edward Island",
+            "geography": "Prince Edward Island",
+            "coordinate": "3.2.1.1.1.1.0.0.0.0",
+            "vectorId": 2139419,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "wages:Nova Scotia",
+            "geography": "Nova Scotia",
+            "coordinate": "4.2.1.1.1.1.0.0.0.0",
+            "vectorId": 2142839,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "wages:New Brunswick",
+            "geography": "New Brunswick",
+            "coordinate": "5.2.1.1.1.1.0.0.0.0",
+            "vectorId": 2146259,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "wages:Quebec",
+            "geography": "Quebec",
+            "coordinate": "6.2.1.1.1.1.0.0.0.0",
+            "vectorId": 2149679,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "wages:Ontario",
+            "geography": "Ontario",
+            "coordinate": "7.2.1.1.1.1.0.0.0.0",
+            "vectorId": 2153099,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "wages:Manitoba",
+            "geography": "Manitoba",
+            "coordinate": "8.2.1.1.1.1.0.0.0.0",
+            "vectorId": 2156519,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "wages:Saskatchewan",
+            "geography": "Saskatchewan",
+            "coordinate": "9.2.1.1.1.1.0.0.0.0",
+            "vectorId": 2159939,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "wages:Alberta",
+            "geography": "Alberta",
+            "coordinate": "10.2.1.1.1.1.0.0.0.0",
+            "vectorId": 2163359,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          },
+          {
+            "key": "wages:British Columbia",
+            "geography": "British Columbia",
+            "coordinate": "11.2.1.1.1.1.0.0.0.0",
+            "vectorId": 2166779,
+            "firstReferencePeriod": "2014-03-01",
+            "latestReferencePeriod": "2026-08-01"
+          }
+        ]
+      },
+      {
+        "organization": "Canada Mortgage and Housing Corporation via Statistics Canada",
+        "tableId": 34100135,
+        "tableNumber": "34-10-0135-01",
+        "title": "Canada Mortgage and Housing Corporation, housing starts, under construction and completions, all areas, quarterly",
+        "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3410013501",
+        "frequencyCode": 9,
+        "latestReferencePeriod": "2026-04-01",
+        "releaseTime": "2026-07-17T08:30",
+        "series": [
+          {
+            "key": "starts:Canada",
+            "geography": "Canada",
+            "coordinate": "1.1.1.1.0.0.0.0.0.0",
+            "vectorId": 730416,
+            "firstReferencePeriod": "2014-01-01",
+            "latestReferencePeriod": "2026-04-01"
+          }
+        ]
+      }
+    ]
+  },
+  "chapters": [
+    {
+      "id": "chapter-1",
+      "number": "01",
+      "navTitle": "The pressure"
+    },
+    {
+      "id": "chapter-2",
+      "number": "02",
+      "navTitle": "People and homes"
+    },
+    {
+      "id": "chapter-3",
+      "number": "03",
+      "navTitle": "Prices and pay"
+    },
+    {
+      "id": "chapter-4",
+      "number": "04",
+      "navTitle": "Regional differences"
+    },
+    {
+      "id": "chapter-5",
+      "number": "05",
+      "navTitle": "Looking ahead"
+    }
+  ],
+  "figures": {
+    "priceVsEarnings": {
+      "labels": [
+        "2016",
+        "2018",
+        "2020",
+        "2022",
+        "2024",
+        "2026"
+      ],
+      "costs": [
+        100,
+        104.3,
+        106.4,
+        118.6,
+        125.7,
+        131.9
+      ],
+      "earnings": [
+        100,
+        104.2,
+        114.4,
+        122.2,
+        134.7,
+        141.7
+      ],
+      "seriesLabels": [
+        "All-items CPI",
+        "Average hourly wage"
+      ],
+      "basePeriod": "2016-08-01",
+      "latestPeriod": "2026-08-01",
+      "sourceNote": "Statistics Canada tables 18-10-0004-01 and 14-10-0063-01; monthly, not seasonally adjusted; indexed to August 2016 = 100. Latest shared period: August 2026.",
+      "summary": "From August 2016 to August 2026, Canada's all-items CPI rose 31.9%; average hourly wages rose 41.7%. These national averages do not describe every household or worker."
+    },
+    "populationHousing": {
+      "startYear": 2016,
+      "endYear": 2025,
+      "series": [
+        {
+          "label": "Population estimate (July 1)",
+          "value": 115.2,
+          "colorClass": "population-color"
+        },
+        {
+          "label": "Housing starts (calendar-year total)",
+          "value": 130.9,
+          "colorClass": "housing-color"
+        }
+      ],
+      "summary": "From 2016 to 2025, the July 1 population estimate changed 15.2%; annual housing starts changed 30.9%. Starts are not completions or occupied homes.",
+      "sourceNote": "Statistics Canada tables 17-10-0009-01 and 34-10-0135-01. Population is a July 1 stock estimate; housing starts are unadjusted total units started during each calendar year. Both are indexed to 2016 = 100, but are different measures and do not establish housing adequacy."
+    },
+    "essentialCosts": [
+      {
+        "label": "All items",
+        "value": 131.9,
+        "colorClass": "essential-overall"
+      },
+      {
+        "label": "Food",
+        "value": 142.2,
+        "colorClass": "essential-food"
+      },
+      {
+        "label": "Shelter",
+        "value": 140.2,
+        "colorClass": "essential-shelter"
+      }
+    ],
+    "regionalComparison": [
+      {
+        "province": "Newfoundland and Labrador",
+        "housing": 141.6,
+        "earnings": 136.6
+      },
+      {
+        "province": "Prince Edward Island",
+        "housing": 144.6,
+        "earnings": 148.2
+      },
+      {
+        "province": "Nova Scotia",
+        "housing": 151.4,
+        "earnings": 144.6
+      },
+      {
+        "province": "New Brunswick",
+        "housing": 143,
+        "earnings": 145.3
+      },
+      {
+        "province": "Quebec",
+        "housing": 143.8,
+        "earnings": 146.7
+      },
+      {
+        "province": "Ontario",
+        "housing": 136.8,
+        "earnings": 143.1
+      },
+      {
+        "province": "Manitoba",
+        "housing": 147.7,
+        "earnings": 134.4
+      },
+      {
+        "province": "Saskatchewan",
+        "housing": 133.1,
+        "earnings": 124.6
+      },
+      {
+        "province": "Alberta",
+        "housing": 139,
+        "earnings": 125.3
+      },
+      {
+        "province": "B.C.",
+        "housing": 143.9,
+        "earnings": 151.3
+      }
+    ]
+  }
+}

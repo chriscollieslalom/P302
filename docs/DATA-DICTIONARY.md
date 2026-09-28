@@ -18,59 +18,53 @@ For every measure, record:
 
 Use `To be validated` for unresolved details. Do not infer exact identifiers or frequencies from a broad dataset description.
 
-## Candidate story measures
+## Implemented source measures
 
-### Consumer prices
+### Consumer Price Index
 
-- Metric ID: `consumer-prices`
-- Intended use: Establish how the overall price level and selected essentials changed.
-- Candidate source: Statistics Canada Consumer Price Index tables.
-- Geography: Canada; selected provinces only where definitions and periods are comparable.
-- Unit and frequency: To be validated for each selected series.
-- Interpretation: A change in the price index is not the same as the inflation rate. Explain the base period and comparison window.
-- Source series and transformation: To be validated before use.
+- Table: [18-10-0004-01](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1810000401), *Consumer Price Index, monthly, not seasonally adjusted*.
+- Geography: Canada for all-items, food, and shelter; all ten provinces for the shelter comparison.
+- Unit: CPI index points, originally on the table's published index base.
+- Frequency: Monthly; not seasonally adjusted.
+- Transformation: For story charts, each series is rebased to 100 in August 2016. The charted change is cumulative movement in the index, not an inflation rate and not an amount a household paid.
+- Current snapshot period: August 2016 to August 2026.
+- Limitations: CPI is an average price measure with a defined basket. It does not describe every household's spending or housing costs.
 
-### Shelter and food prices
+### Average hourly wage rate
 
-- Metric IDs: `shelter-prices`, `food-prices`
-- Intended use: Show how essential price categories contribute context to the household affordability story.
-- Candidate source: Statistics Canada CPI component tables.
-- Geography, unit, frequency, seasonal adjustment, and exact components: To be validated.
-- Interpretation: Do not imply that a national category change describes every household's expenses.
+- Table: [14-10-0063-01](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1410006301), *Employee wages by industry, monthly, unadjusted for seasonality*.
+- Selected dimensions: Average hourly wage rate; both full- and part-time employees; total employees, all industries; total gender; age 15 years and over.
+- Geography: Canada and all ten provinces.
+- Unit: Canadian dollars per hour.
+- Frequency: Monthly; unadjusted for seasonality.
+- Transformation: Rebased to 100 in the same month as the CPI series for index comparisons. Raw hourly wage values are not presented as real wages.
+- Limitations: A change in the average can reflect workforce composition as well as individual wage changes. It is not the wage path of a fixed worker or a measure of household income.
 
-### Population growth
+### Population estimates
 
-- Metric ID: `population-growth`
-- Intended use: Provide demographic context for the housing-supply comparison.
-- Candidate source: Statistics Canada population estimates.
-- Geography: Canada and provinces/territories where comparable.
-- Unit, frequency, reference period, and whether to use level or percentage change: To be validated.
-- Interpretation: Population change represents a broad total; it is not a direct measure of housing demand or household formation.
+- Table: [17-10-0009-01](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710000901), *Population estimates, quarterly*.
+- Geography: Canada.
+- Unit: Persons.
+- Frequency: Quarterly; the chapter comparison uses July 1 estimates for 2016 and 2025.
+- Interpretation: Population is a stock estimate. Population change is not identical to household formation or housing demand.
 
-### Housing supply
+### Housing starts
 
-- Metric ID: `housing-supply`
-- Intended use: Compare a defined measure of new housing supply with population change.
-- Candidate source: CMHC housing starts/completions data or a validated Statistics Canada dataset.
-- Geography: Canada and provinces/territories only where definitions and coverage align.
-- Unit, frequency, seasonal adjustment, and selected supply measure: To be validated.
-- Interpretation: Starts, completions, and housing stock are different measures. Do not treat them as interchangeable or equate starts with available homes.
+- Table: [34-10-0135-01](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3410013501), *Canada Mortgage and Housing Corporation, housing starts, under construction and completions, all areas, quarterly*.
+- Selected dimensions: Housing starts; total units; unadjusted; Canada.
+- Unit: Housing units started.
+- Frequency: Quarterly; summed into complete calendar-year totals for the story comparison.
+- Interpretation: Starts are units entering construction, not completions, occupied homes, or a direct measure of available housing. The chapter compares indexed population stock with indexed annual starts and explicitly notes they are different measures.
 
-### Wages and purchasing power
+### Derived comparisons
 
-- Metric IDs: `wage-growth`, `real-wage-growth`
-- Intended use: Compare nominal earnings growth with consumer price changes to discuss purchasing power.
-- Candidate source: Statistics Canada earnings or wage series and a compatible CPI series.
-- Geography, population covered, unit, frequency, and seasonal adjustment: To be validated.
-- Transformation: If real wage growth is calculated, document the exact formula, period alignment, and limitations. Do not mix unaligned wage and CPI periods.
+- National price/pay chart: all-items CPI and average hourly wages; same-month annual samples from August 2016 through August 2026, both indexed to August 2016 = 100.
+- Essential prices chart: all-items, food, and shelter CPI; rebased to August 2016 = 100.
+- People/building-activity chart: July 1 population estimates and calendar-year housing starts, 2016 and 2025 comparison, each indexed to 2016 = 100.
+- Provincial chart: shelter CPI and average hourly wages in ten provinces, rebased to August 2016 = 100.
+- No derived chart establishes causation or measures affordability for an individual household.
 
-### Provincial comparison
-
-- Metric ID: `provincial-affordability-context`
-- Intended use: Show how selected population, housing, price, and wage measures vary by province.
-- Source and measure: To be selected from the definitions above.
-- Requirement: Use a consistent time window, geography, and definition; disclose gaps and differences in release timing.
-- Interpretation: Provincial averages do not represent every community or household.
+The refresh script records exact WDS coordinates, vector IDs, and observed date ranges in `src/data/affordability-story-live.json`.
 
 ## Missing and revised values
 

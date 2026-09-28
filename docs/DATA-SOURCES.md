@@ -1,42 +1,33 @@
 # Data Sources
 
-## Approach
-
-Prototype data first. The complete story must work locally before external requests are introduced. Label all illustrative values clearly and never imply they are current official statistics.
-
-Select a source for the specific measure and claim in the story. Verify the dataset and underlying resource, not only a catalogue description. Record the source URL and metadata in `DATA-DICTIONARY.md` before implementation.
-
-## Candidate providers
+## Implemented sources
 
 ### Statistics Canada
 
-Potential source for consumer prices and CPI components, population estimates, wages and earnings, and comparable regional statistics. Validate table or vector identifiers, dimensions, geography, units, frequency, adjustment status, revision behaviour, and API response before use.
+The application uses public Statistics Canada Web Data Service (WDS) methods to retrieve metadata and selected time series:
 
-### Canada Mortgage and Housing Corporation
+- [Consumer Price Index, monthly, not seasonally adjusted](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1810000401), table 18-10-0004-01
+- [Population estimates, quarterly](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710000901), table 17-10-0009-01
+- [Employee wages by industry, monthly, unadjusted for seasonality](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1410006301), table 14-10-0063-01
+- [CMHC housing starts, under construction and completions, all areas, quarterly](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3410013501), table 34-10-0135-01
 
-Potential source for housing starts, completions, and related housing-market measures. Confirm the measure definition, geographic coverage, units, frequency, seasonal-adjustment status, and whether a measure represents starts, completions, or existing stock.
+The housing table is produced by CMHC and distributed through Statistics Canada. The current story uses housing starts, not completions; the selected completion aggregate returned unavailable observations.
 
-### Bank of Canada
+### WDS API
 
-Use only if the narrative needs a monetary or financial context measure. It is not a substitute for household affordability, housing supply, or wage data. Validate the exact series and metadata before integration.
+The refresh script uses the official [WDS User Guide](https://www.statcan.gc.ca/en/developers/wds/user-guide) methods `getCubeMetadata` and `getDataFromCubePidCoordAndLatestNPeriods`. It resolves dimension-member coordinates from table metadata, requests only the selected series, rejects failed responses and missing required comparison periods, and writes a local JSON snapshot.
 
-### Government of Canada Open Data
+## Refresh and runtime behavior
 
-Use the catalogue to discover federal datasets. Inspect the actual resource, format, access method, licence, update cadence, and underlying data provider before relying on it.
+Run `npm run data:update` while online to refresh `src/data/affordability-story-live.json`. The script records retrieval time, table titles, release/reference periods, coordinates, vector IDs, and series date ranges. It writes the output only after all required observations validate, so a failed refresh does not replace the last good snapshot.
 
-## Integration requirements
+The browser reads the stored JSON and makes no external data requests. The official snapshot is the default edition. The preserved fictional dataset is selectable in the header as **Prototype** for comparison or rollback.
 
-- Keep network requests out of Vue presentation components.
-- Retrieve only observations needed by the story.
-- Preserve source, reference period, geography, unit, and retrieval metadata.
-- Normalize provider responses before presentation.
-- Handle loading, empty, unavailable, suppressed, revised, and error cases explicitly.
-- Never replace missing observations with zero.
-- Use local fallback only when it is clearly identified as prototype data.
-- Avoid unnecessary repeat requests and do not expose credentials in browser code.
+## Interpretation and data quality
 
-## Source validation gate
-
-Before connecting a source, document the exact series or resource and verify its definition, dimensions, unit, geography, frequency, period, adjustment status, missing-value behaviour, terms, and transformation. Review sample observations manually and record the mapping in `DATA-DICTIONARY.md`.
-
-Do not add a live integration until the local story works and its narrative claims are supported by defined measures.
+- Reference periods are figure-specific; do not treat the snapshot date as the observation date.
+- CPI and wage series are not seasonally adjusted; comparisons use the same month.
+- Population is a stock, housing starts are a construction flow, and neither is a direct measure of housing adequacy.
+- Average hourly wages are composition-sensitive and not representative of every worker or household.
+- Never replace missing, suppressed, or unavailable values with zero.
+- Update this documentation and `DATA-DICTIONARY.md` whenever selected tables, dimensions, or transformations change.

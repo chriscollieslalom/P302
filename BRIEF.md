@@ -32,7 +32,7 @@ Readers should be able to understand:
 ## Narrative structure
 
 1. Canada feels more expensive
-2. Population grew faster than housing
+2. People and homebuilding move at different speeds
 3. Inflation added pressure
 4. Canada is not one story
 5. What Canadians should watch next
@@ -41,7 +41,7 @@ Each chapter should advance the central argument. Avoid turning the story into a
 
 ## Data approach
 
-Begin with local prototype data so the complete experience works without network access. Clearly label illustrative values; do not present them as current official statistics. Before using live data, define each measure and validate its source, geography, unit, frequency, reference period, and transformation.
+The official edition uses a locally cached source snapshot so the complete experience works without network access; the fictional prototype remains available for comparison. Clearly label illustrative values and show source metadata for official observations. Before using data, define each measure and validate its source, geography, unit, frequency, reference period, and transformation.
 
 The story should explain association and context without claiming that one indicator alone proves causation.
 

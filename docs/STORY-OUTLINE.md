@@ -4,13 +4,13 @@
 
 Open with the change readers recognize in daily costs. Establish a clear time comparison using a well-defined price measure, and distinguish the cost level from the rate at which prices are changing.
 
-## 2. Population Grew Faster Than Housing
+## 2. People and Homebuilding Move at Different Speeds
 
-Compare population growth with a defined housing-supply measure over compatible periods. Explain what each measure captures and why the comparison provides context rather than proof of a single causal relationship.
+Compare population estimates with housing starts, while making the stock-versus-flow distinction explicit. Starts are not completed homes. Avoid claiming that population grew faster than housing unless compatible evidence supports that exact claim.
 
 ## 3. Inflation Added Pressure
 
-Show how broad inflation and selected essentials affected the cost of living. Bring in wage growth to explain purchasing power, keeping nominal wages, real wages, and price levels distinct.
+Show how broad inflation and selected essentials changed, then compare those price indexes with average hourly wages. Explain that an average wage series is not a fixed-worker earnings path or a complete measure of household purchasing power.
 
 ## 4. Canada Is Not One Story
 
