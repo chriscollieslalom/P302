@@ -1,6 +1,6 @@
-# The Affordability Gap
+# Canadian Affordability Insight
 
-The Affordability Gap is an independent Protogen P302 interactive data story about how housing, population growth, inflation, wages, and regional differences interact to shape affordability pressures in Canada.
+Canadian Affordability Insight is an independent Protogen P302 interactive data story about how housing, population growth, inflation, wages, and regional differences interact to shape affordability pressures in Canada.
 
 The experience unfolds in five chapters. It is a narrative data story, not a dashboard. The current edition uses a local snapshot of official data; the earlier fictional dataset is preserved separately for rollback.
 

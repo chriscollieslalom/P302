@@ -1,4 +1,4 @@
-# The Affordability Gap: Implementation Plan
+# Canadian Affordability Insight: Implementation Plan
 
 ## Project type
 
@@ -6,7 +6,7 @@ Protogen P302 interactive data story.
 
 ## Product summary
 
-The Affordability Gap is a responsive, chapter-based data story exploring how housing, population growth, inflation, wages, and regional differences interact to shape affordability pressures in Canada.
+Canadian Affordability Insight is a responsive, chapter-based data story exploring how housing, population growth, inflation, wages, and regional differences interact to shape affordability pressures in Canada.
 
 The experience should make a clear, evidence-led argument without reducing a complex issue to a single cause or a wall of dashboard metrics.
 

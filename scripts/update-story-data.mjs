@@ -402,7 +402,7 @@ const sourceRecords = tableIds.map((productId) => {
 const lastRefreshed = new Date().toISOString()
 const liveData = {
   meta: {
-    title: 'The Affordability Gap',
+    title: 'Canadian Affordability Insight',
     edition: 'official',
     status: 'Official Statistics Canada and CMHC source snapshot; reference periods vary by figure.',
     fetchedAt: lastRefreshed,

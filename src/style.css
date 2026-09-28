@@ -80,15 +80,12 @@ a { color: inherit; }
 }
 
 .wordmark-symbol {
-  display: grid;
-  width: 30px;
-  aspect-ratio: 1;
-  place-items: center;
-  border-radius: 50%;
-  background: var(--green);
-  color: #fff;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.62rem;
+  display: block;
+  width: 29px;
+  height: 23px;
+  flex: 0 0 auto;
+  font-size: 1.28rem;
+  line-height: 1;
 }
 
 .masthead-meta {
@@ -498,7 +495,7 @@ a { color: inherit; }
   html { scroll-padding-top: 72px; }
   .masthead { min-height: 58px; flex-wrap: wrap; gap: 8px; padding: 9px 18px; }
   .wordmark { gap: 8px; font-size: 0.72rem; }
-  .wordmark-symbol { width: 26px; }
+  .wordmark-symbol { width: 25px; height: 20px; font-size: 1.12rem; }
   .masthead-meta { width: 100%; justify-content: space-between; gap: 8px; font-size: 0.55rem; }
   .masthead-meta > span:first-child { display: none; }
   .masthead-index { display: none; }

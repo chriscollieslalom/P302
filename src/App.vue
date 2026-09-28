@@ -170,9 +170,9 @@ onUnmounted(() => chapterObserver?.disconnect())
   <VApp>
     <div class="story-page" id="top">
       <header class="masthead">
-        <a class="wordmark" href="#top" aria-label="The Affordability Gap, home">
-          <span class="wordmark-symbol" aria-hidden="true">AG</span>
-          <span>The Affordability Gap</span>
+        <a class="wordmark" href="#top" aria-label="Canadian Affordability Insight, home">
+          <span class="wordmark-symbol" aria-hidden="true">🇨🇦</span>
+          <span>Canadian Affordability Insight</span>
         </a>
         <div class="masthead-meta">
           <span>Canada / Data story</span>
@@ -185,7 +185,7 @@ onUnmounted(() => chapterObserver?.disconnect())
           <div class="hero-inner">
             <div class="hero-copy">
               <p class="overline"><span class="overline-rule"></span> A five-part story about the cost of living</p>
-              <h1 id="story-title">The<br />Affordability<br /><span>Gap</span></h1>
+              <h1 id="story-title">Canadian<br />Affordability<br /><span>Insight</span></h1>
               <p class="hero-deck">Why housing, population growth, inflation and wages are connected, and why the pressure is not the same everywhere.</p>
               <a class="start-link" href="#chapter-1">Start the story <span aria-hidden="true">↓</span></a>
             </div>
@@ -378,7 +378,7 @@ onUnmounted(() => chapterObserver?.disconnect())
       </main>
 
       <footer class="story-footer">
-        <a class="footer-brand" href="#top">The Affordability Gap</a>
+        <a class="footer-brand" href="#top">Canadian Affordability Insight</a>
         <span>Independent educational prototype</span>
         <span>Not an official Government of Canada product</span>
       </footer>

@@ -1,8 +1,8 @@
-# Project Brief: The Affordability Gap
+# Project Brief: Canadian Affordability Insight
 
 ## Summary
 
-The Affordability Gap is an independent educational, narrative-driven data story about why affordability pressures in Canada have changed over the past decade.
+Canadian Affordability Insight is an independent educational, narrative-driven data story about why affordability pressures in Canada have changed over the past decade.
 
 This is an interactive story, not a dashboard. It develops an argument through chapters, explanatory graphics, and carefully sourced evidence.
 
