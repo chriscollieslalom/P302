@@ -8,6 +8,7 @@ import {
   LinearScale,
   PointElement,
   Tooltip,
+  type Plugin,
   type ChartOptions,
 } from 'chart.js'
 import { Line } from 'vue-chartjs'
@@ -63,7 +64,35 @@ type StoryData = {
   }
 }
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler)
+const directLineLabels: Plugin<'line'> = {
+  id: 'directLineLabels',
+  afterDatasetsDraw(chart) {
+    const labels: Record<string, string> = {
+      'New-house price growth / income growth': 'New homes',
+      'Shelter CPI growth / income growth': 'Shelter',
+      'All-items CPI growth / income growth': 'All items',
+    }
+    const { ctx } = chart
+
+    ctx.save()
+    ctx.font = '600 10px Inter, sans-serif'
+    ctx.textBaseline = 'middle'
+
+    chart.data.datasets.forEach((dataset, index) => {
+      const label = labels[dataset.label ?? '']
+      const point = chart.getDatasetMeta(index).data.at(-1)
+
+      if (!label || !point) return
+
+      ctx.fillStyle = dataset.borderColor as string
+      ctx.fillText(label, point.x + 8, point.y)
+    })
+
+    ctx.restore()
+  },
+}
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler, directLineLabels)
 
 const storyData = officialStoryData as StoryData
 const activeChapter = ref('chapter-1')
@@ -114,12 +143,11 @@ const lineOptions: ChartOptions<'line'> = {
   interaction: { mode: 'index', intersect: false },
   plugins: {
     legend: {
-      position: 'bottom',
-      align: 'start',
-      labels: { usePointStyle: true, pointStyle: 'circle', boxWidth: 8, padding: 22, color: '#33413c' },
+      display: false,
     },
     tooltip: { enabled: true },
   },
+  layout: { padding: { right: 76 } },
   scales: {
     x: { grid: { display: false }, ticks: { color: '#58645e' } },
     y: { min: 85, max: 110, grid: { color: 'rgba(30, 50, 42, 0.09)' }, ticks: { color: '#58645e' } },

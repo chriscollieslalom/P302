@@ -474,7 +474,7 @@ a { color: inherit; }
 }
 
 @media (max-width: 900px) {
-  .hero-inner { width: min(100% - 48px, 720px); grid-template-columns: 1fr; gap: 46px; padding-top: 56px; }
+  .hero-inner { width: min(100% - 48px, 720px); grid-template-columns: minmax(0, 1fr); gap: 46px; padding-top: 56px; }
   .hero h1 { font-size: 5.3rem; }
   .hero-copy { max-width: 540px; }
   .hero-figure { max-width: 650px; }
